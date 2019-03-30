@@ -1,14 +1,14 @@
 E-Mail Autoconfigure
 ====================
 
-Some E-Mail clients gather configuration information before setting up mail accounts. This project allows to provide clients like Outlook and Thunderbird the proper mail server configuration, so that users can simply enter their email and password to setup a new mail account.
+Certains clients de messagerie recueillent des informations de configuration avant de configurer des comptes de messagerie. Ce projet permet de fournir à des clients comme Outlook, Thunderbird et Mail la bonne configuration de serveur de messagerie, afin que les utilisateurs puissent simplement entrer leur courriel et mot de passe pour configurer un nouveau compte de messagerie.
 
 Installation
 ------------
 
-### Apache Webserver
+### Serveur Apache
 
-You need an Apache webserver with PHP5 preconfigures. You can then configure your Virtual Host like this
+Pour configurer l'Autodiscover sur un domaine unique, vous pouvez configurer votre hôte virtuel comme suit:
 
 ```
 <VirtualHost *:443>
@@ -24,14 +24,14 @@ You need an Apache webserver with PHP5 preconfigures. You can then configure you
 </VirtualHost>
 ```
 
-Now copy `settings.json.sample` to your Virtual Host directory root and apply your configuration variables.
+Copiez maintenant `settings.json.json.sample` à la racine de votre répertoire Virtual Host et appliquez vos variables de configuration.
 
 
-### Autoconfig for multiple domains on the same server
+### Autoconfig pour plusieurs domaines sur le même serveur
 
-When a user puts his E-Mail address `user@example.org` into his mail client, it will probably do a GET request on https://autodiscover.example.org/autodiscover/autodiscover.xml
+Lorsqu'un utilisateur met son adresse e-mail `user@example.org` dans son client de messagerie, il fera probablement une requête GET sur https://autodiscover.example.org/autodiscover/autodiscover.xml
 
-If you have multiple domains hosted on your mailserver, you can redirect those requests to your main-autoconfig server. Add this configuration to your existing Virtual Host configuration:
+Si vous avez plusieurs domaines hébergés sur votre serveur de messagerie, vous pouvez rediriger ces requêtes vers votre serveur main-autoconfig. Ajoutez cette configuration à votre configuration d'hôte virtuel existante :
 
 ```
 <VirtualHost *:443>
@@ -65,8 +65,6 @@ If you have multiple domains hosted on your mailserver, you can redirect those r
 
 ### DNS Setup
 
-For the case you are using Bind and have the autoconfig HTTP server running on the same IP your `www.` subdomain resolves to, you can use this DNS records to configure your nameserver
-
 ```
 autoconfig              IN      CNAME   www
 autodiscover            IN      CNAME   www
@@ -78,20 +76,20 @@ _submission._tcp        SRV 0 1 465     {{$MX_DOMAIN}}.
 _autodiscover._tcp      SRV 0 0 443     autodiscover.{{$DOMAIN}}.
 ```
 
-Instead of a CNAME, you can of course also choose an A-record
+Au lieu d'un CNAME, vous pouvez bien sûr aussi choisir un A-record
 
 ```
 autoconfig              IN      A      {{$AUTODISCOVER_IP}}
 autodiscover            IN      A      {{$AUTODISCOVER_IP}}
 ```
 
-Replace above variables with data according to this table
+Remplacer les variables ci-dessus par des données selon le tableau suivant
 
 Variable         | Description
 -----------------|-------------------------------------------------------------
-MX_DOMAIN        | The hostname name of your MX server
-DOMAIN           | Your apex/bare/naked Domain
-AUTODISCOVER_IP  | IP of the Autoconfig HTTP
+MX_DOMAIN        | Le nom d'hôte de votre serveur MX
+DOMAIN           | Le domain
+AUTODISCOVER_IP  | L'adresse IP du server AutoDiscover
 
 ToDo
 ----
