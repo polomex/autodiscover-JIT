@@ -5,12 +5,12 @@ Certains clients de messagerie recueillent des informations de configuration ava
 
 ### Microsoft Outlook
 
-Le logiciel Outlook de Microsoft permet l'autoconfiguration en utilisant des résolution DNS et des requêtes HTTP. Il vérifie d'abord la zone DNS pour trouver un SRV pour le service `autodiscover` utilisant le protocole TCP (`_autodiscover._tcp.<DOMAINE>`). Cet enregistrement à comme valeure le nom d'hôte du serveur où se trouve les fichiers d'autoconfiguration.
+Le logiciel Outlook de Microsoft permet l'autoconfiguration en utilisant des résolution DNS et des requêtes HTTP. Il vérifie d'abord la zone DNS pour trouver un enregistrement SRV pour le service `autodiscover` utilisant le protocole TCP (`_autodiscover._tcp.<DOMAINE>`). Cet enregistrement à comme valeure le nom d'hôte du serveur où se trouve les fichiers d'autoconfiguration. Une requête HTTP vers le `https://<SRV_RECORD_VALUE>/autodiscover/autodiscover.xml` sera faite pour récupérer le fichier de configuration XML.
 
 
 ### Mozilla Thunderbird
 
-Le logiciel Thunderbird utilise un principe similaire à Outlook pour la découverte des fichiers d'autoconfiguration
+Le logiciel Thunderbird utilise un principe similaire à Outlook pour la découverte des fichiers d'autoconfiguration. Il 
 
 ### IOS
 
@@ -108,8 +108,3 @@ ToDo
  * Faire une version plus moderne utilisant des technologies comme Flask & NodeJS
  * Configuration de vhosts pour NGINX
  * Création de l'interface graphique
-
- * Allow other authentication methods (currently always required)
- * Support nginx HTTP server
- * Add client support table
- * Create a Makefile for easy installation
