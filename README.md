@@ -3,6 +3,18 @@ E-Mail Autoconfigure
 
 Certains clients de messagerie recueillent des informations de configuration avant de configurer des comptes de messagerie. Ce projet permet de fournir à des clients comme Outlook, Thunderbird et Mail la bonne configuration de serveur de messagerie, afin que les utilisateurs puissent simplement entrer leur courriel et mot de passe pour configurer un nouveau compte de messagerie.
 
+### Microsoft Outlook
+
+Le logiciel Outlook de Microsoft permet l'autoconfiguration en utilisant des résolution DNS et des requêtes HTTP. Il vérifie d'abord la zone DNS pour trouver un SRV pour le service `autodiscover` utilisant le protocole TCP (`_autodiscover._tcp.<DOMAINE>`). Cet enregistrement à comme valeure le nom d'hôte du serveur où se trouve les fichiers d'autoconfiguration.
+
+
+### Mozilla Thunderbird
+
+Le logiciel Thunderbird utilise un principe similaire à Outlook pour la découverte des fichiers d'autoconfiguration
+
+### IOS
+
+
 Installation
 ------------
 
@@ -93,6 +105,9 @@ AUTODISCOVER_IP  | L'adresse IP du server AutoDiscover
 
 ToDo
 ----
+ * Faire une version plus moderne utilisant des technologies comme Flask & NodeJS
+ * Configuration de vhosts pour NGINX
+ * Création de l'interface graphique
 
  * Allow other authentication methods (currently always required)
  * Support nginx HTTP server
